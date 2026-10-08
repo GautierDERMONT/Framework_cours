@@ -1,0 +1,53 @@
+{
+  "projects": [
+    {
+      "id": "site-esiee",
+      "name": "Refonte site ESIEE-IT",
+      "description": "Nouvelle vitrine pour la rentrée."
+    },
+    {
+      "name": "Google",
+      "description": "fffff",
+      "id": "rJ9s2xHwsII"
+    },
+    {
+      "name": "ddd",
+      "description": "ddd",
+      "id": "bSuH69Xv-RA"
+    },
+    {
+      "name": "edd",
+      "description": "ddd",
+      "id": "bLMiCDK_jTQ"
+    },
+    {
+      "name": "Coucou",
+      "description": "ceci est un test",
+      "id": "b0W_oRnKVoM"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t1",
+      "projectId": "site-esiee",
+      "title": "Maquettes validées",
+      "status": "doing",
+      "priority": 1
+    },
+    {
+      "projectId": "b0W_oRnKVoM",
+      "title": "ffffff",
+      "status": "todo",
+      "priority": 2,
+      "id": "a4wpoRtQ6TA"
+    },
+    {
+      "projectId": "b0W_oRnKVoM",
+      "title": "fvvvvv",
+      "status": "doing",
+      "priority": 2,
+      "id": "3RQvhiS5wNA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

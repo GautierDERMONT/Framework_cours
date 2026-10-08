@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
+import { Route, Routes, useParams } from "react-router-dom";
 
 import { Card } from "./components/Card";
 import { FilterBar } from "./components/FilterBar";
 import { FocusTimer } from "./components/FocusTimer";
+import { Layout } from "./components/Layout";
 import { TaskForm } from "./components/TaskForm";
 import { TaskList } from "./components/TaskList";
-import { ThemeToggle } from "./components/ThemeToggle";
-import { ThemeProvider } from "./context/ThemeProvider";
+
+import { AboutPage } from "./pages/AboutPage";
+import { NewProjectPage } from "./pages/NewProjectPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { ProjectsPage } from "./pages/ProjectsPage";
 
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import {
@@ -16,6 +21,9 @@ import {
   type Task,
 } from "./types";
 
+// ============================================================
+// Board : la page d'accueil locale (localStorage)
+// ============================================================
 function Board() {
   const [tasks, setTasks] = useLocalStorage<Task[]>("taskflow-tasks", []);
   const [filter, setFilter] = useState<Filter>("all");
@@ -46,33 +54,36 @@ function Board() {
     setTasks((prev) => prev.filter((t) => t.id !== id));
 
   return (
-    <main className="app">
-      <header className="topbar">
-        <h1>
-          TaskFlow <small>{remaining} restante(s)</small>
-        </h1>
-        <ThemeToggle />
-      </header>
-
+    <section className="page">
       <Card title="Concentration">
         <FocusTimer />
       </Card>
 
-      <Card
-        title="Tâches"
-        actions={<FilterBar value={filter} onChange={setFilter} />}
-      >
+      <Card title="Tâches">
         <TaskForm onAdd={add} />
+        <FilterBar value={filter} onChange={setFilter} />
         <TaskList tasks={visible} onCycle={cycle} onRemove={remove} />
       </Card>
-    </main>
+    </section>
   );
+}
+
+function ProjectRoute() {
+  const { id = "" } = useParams();
+  return <ProjectsPage key={id} />;
 }
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <Board />
-    </ThemeProvider>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Board />} />
+        <Route path="projects" element={<ProjectsPage />} />
+        <Route path="projects/new" element={<NewProjectPage />} />
+        <Route path="projects/:id" element={<ProjectRoute />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 }

@@ -50,14 +50,16 @@
 
 * { box-sizing: border-box; }
 
-body { margin: 0; background: var(--bg); color: var(--text); }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
 
-.app {
-  max-width: 760px;
-  margin: 3rem auto;
-  padding: 0 1rem;
+section {
   display: grid;
-  gap: 1.5rem;
+  gap: 1rem;
+  align-content: start;
 }
 
 h1 {
@@ -67,7 +69,21 @@ h1 {
   align-items: baseline;
   gap: 0.75rem;
 }
-h1 small { font-size: 0.95rem; color: var(--muted); font-weight: 500; }
+
+h1 small {
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
 
 .topbar {
   display: flex;
@@ -75,9 +91,55 @@ h1 small { font-size: 0.95rem; color: var(--muted); font-weight: 500; }
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
 }
 
-/* Boutons */
+.brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--muted);
+  padding: 0.25rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+.nav a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.page-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
 button {
   font: inherit;
   cursor: pointer;
@@ -87,13 +149,29 @@ button {
   color: var(--text);
   padding: 0.5rem 0.9rem;
 }
+
 button:disabled { opacity: 0.5; cursor: not-allowed; }
+
 button:focus-visible,
 input:focus-visible,
-select:focus-visible {
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+
+a.button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
 
 .card {
   background: var(--surface);
@@ -102,6 +180,7 @@ select:focus-visible {
   padding: 1.25rem;
   box-shadow: var(--shadow);
 }
+
 .card__header {
   display: flex;
   justify-content: space-between;
@@ -110,8 +189,17 @@ select:focus-visible {
   flex-wrap: wrap;
   margin-bottom: 1rem;
 }
-.card__header h2 { margin: 0; font-size: 1.15rem; }
-.card__body { display: grid; gap: 1rem; }
+
+.card__header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.card__body {
+  display: grid;
+  gap: 1rem;
+}
+
 
 .task-form {
   display: flex;
@@ -122,10 +210,12 @@ select:focus-visible {
   border: 1px solid var(--border);
   border-radius: 10px;
 }
+
 .task-form:focus-within {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
+
 .task-form input,
 .task-form select {
   border: none;
@@ -136,9 +226,12 @@ select:focus-visible {
   padding: 0.4rem 0.6rem;
   min-width: 0;
 }
+
 .task-form input { flex: 1; }
+
 .task-form input:focus-visible,
 .task-form select:focus-visible { outline: none; }
+
 .task-form select {
   flex: none;
   appearance: none;
@@ -155,7 +248,6 @@ select:focus-visible {
   font-size: 0.85rem;
   font-weight: 500;
 
-  /* flèche dessinée en CSS, qui suit la couleur du texte */
   background-image:
     linear-gradient(45deg, transparent 50%, currentColor 50%),
     linear-gradient(135deg, currentColor 50%, transparent 50%);
@@ -165,13 +257,16 @@ select:focus-visible {
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
 }
+
 .task-form select:hover {
   background-color: var(--accent-soft);
 }
+
 .task-form select:focus-visible {
   outline: none;
   background-color: var(--accent-soft);
 }
+
 .task-form button {
   flex: none;
   padding: 0.4rem 0.9rem;
@@ -180,15 +275,59 @@ select:focus-visible {
   border-color: var(--accent);
   color: var(--on-accent);
 }
-.error { color: var(--danger); width: 100%; margin: 0; font-size: 0.9rem; }
+
+.error {
+  color: var(--danger);
+  width: 100%;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.project-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.field label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.field input,
+.field textarea {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--text);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
 
 .filters {
-  display: flex;
-  gap: 2px;
-  padding: 2px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 999px;
+    display: flex;
+    width: max-content;
+    max-width: max-content;
+    flex: 0 0 auto;
+    gap: 2px;
+    padding: 2px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
 }
 .filters button {
   border: none;
@@ -198,13 +337,20 @@ select:focus-visible {
   padding: 0.25rem 0.7rem;
   font-size: 0.8rem;
 }
+
 .filters button[aria-pressed="true"] {
   background: var(--accent-soft);
   color: var(--text);
 }
 
-/* Liste des tâches */
-.tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
 .task {
   display: flex;
   align-items: center;
@@ -213,6 +359,7 @@ select:focus-visible {
   border: 1px solid var(--border);
   border-radius: 10px;
 }
+
 .task__title { flex: 1; }
 .task--done .task__title { text-decoration: line-through; color: var(--muted); }
 .task__status { font-size: 0.8rem; min-width: 84px; }
@@ -228,6 +375,50 @@ select:focus-visible {
 
 .empty { color: var(--muted); text-align: center; }
 
+.project-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.project-card {
+  display: block;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  color: var(--text);
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.project-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+}
+
+.project-card .muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.project-card .small {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+
 .timer { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
 .timer__time {
   font-size: 2.5rem;
@@ -235,6 +426,11 @@ select:focus-visible {
   font-weight: 700;
   letter-spacing: 0.05em;
   margin-right: auto;
+}
+
+.loading {
+  text-align: center;
+  color: var(--muted);
 }
 
 .sr-only {
@@ -246,3 +442,29 @@ select:focus-visible {
   white-space: nowrap;
 }
 
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    gap: 0.3rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.link-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.link-button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
